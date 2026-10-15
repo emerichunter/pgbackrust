@@ -1,0 +1,18 @@
+[package]
+name = "crate-log"
+description = "Rust port of pgBackRest src/common/log.c with byte-identical log line formatting"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+# No external dependencies (AGENTS.md R8). std is enough: log.c uses only libc time/print/write, and
+# the timestamp is produced by an in-crate civil-calendar conversion (see crate docs) rather than a
+# date/time crate, so no dependency needs justifying here.
+crate-error = { workspace = true }
+
+[lints]
+workspace = true

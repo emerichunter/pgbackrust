@@ -1,0 +1,19 @@
+[package]
+name = "crate-error"
+description = "Rust port of pgBackRest src/common/error with a generated upstream error-code table"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[dependencies]
+crate-types = { workspace = true }
+# thiserror is mandated by AGENTS.md section 3 ("thiserror + a generated error-code table") for the
+# crate's own error enum. It is a proc-macro-only crate: it adds no runtime code, no unsafe, and no
+# transitive dependencies (std is available through its default `std` feature).
+thiserror = { workspace = true }
+
+[lints]
+workspace = true

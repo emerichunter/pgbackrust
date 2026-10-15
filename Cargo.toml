@@ -1,0 +1,49 @@
+# PgBackRust workspace. One crate per upstream module group (see docs/FEATURE_PARITY.md).
+#
+# Sync-first: no async runtime anywhere in this workspace (AGENTS.md section 3).
+# unsafe is forbidden workspace-wide (AGENTS.md R7). If a future crate needs it, it must be
+# designated explicitly in that crate's Cargo.toml and every unsafe block carries a soundness
+# comment.
+[workspace]
+resolver = "2"
+members = ["crates/crate-error", "crates/crate-log", "crates/crate-types"]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.85"
+license = "MIT"
+repository = "https://github.com/emerichunter/pgbackrust"
+publish = false
+
+[workspace.lints.rust]
+# Build scripts inherit workspace lints, and the C sources being ported lean on libc idioms that
+# trip these two rustc lints inside build.rs without any user code being affected.
+elided_lifetimes_in_paths = { level = "deny", priority = 1 }
+missing_debug_implementations = { level = "deny", priority = 1 }
+unused_must_use = { level = "deny", priority = 1 }
+unsafe_code = "forbid"
+missing_docs = "deny"
+explicit_outlives_requirements = "warn"
+keyword_idents_2018 = "deny"
+rust_2018_idioms = { level = "deny", priority = -1 }
+unnameable_types = "allow"
+
+[workspace.lints.rustdoc]
+broken_intra_doc_links = "deny"
+
+[workspace.lints.clippy]
+# Upstream is C with hand-rolled types; Rust std collections are the intended replacement, so the
+# default clippy set is enabled and pedantic/nursery groups stay off to avoid churn.
+all = { level = "deny", priority = -1 }
+single_match_else = "allow"
+module_name_repetitions = "allow"
+
+# No workspace-wide external dependencies. thiserror is declared here (and justified) because
+# AGENTS.md section 3 mandates "thiserror + a generated error-code table"; it is proc-macro only,
+# adds no runtime code, and is used solely for crate-error's own error enum.
+[workspace.dependencies]
+thiserror = "2"
+crate-types = { path = "crates/crate-types" }
+crate-log = { path = "crates/crate-log" }
+crate-error = { path = "crates/crate-error" }

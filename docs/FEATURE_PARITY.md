@@ -67,16 +67,16 @@ Upstream reference: /root/pgbackrest.
 | Subsystem | C source | Crate | Status |
 |---|---|---|---|
 | Config + codegen | build/config.yaml src/config | crate-config | not-started |
-| Error codes | build/error.yaml src/common/error | crate-error | not-started |
+| Error codes | build/error.yaml src/common/error | crate-error | ported (round 1. 8 tests) |
 | Pack codec | src/common/type/pack.c | crate-pack | not-started |
-| Types (buffer. list. kvl. variant. json. ini) | src/common/type | crate-types | not-started |
+| Types (buffer. list. kvl. variant. json. ini) | src/common/type | crate-types | ported (round 1. buffer+hex only. 12 tests) |
 | IO + filters | src/common/io | crate-io | not-started |
 | Crypto (hash. cipher) | src/common/crypto | crate-crypto | not-started |
 | Lock/wait/stat/time | src/common (lock.c etc) | crate-common | not-started |
 | Postgres interface | src/postgres/interface | crate-postgres | not-started |
 | Manifest | src/info/manifest | crate-manifest | not-started |
 | Info files | src/info | crate-info | not-started |
-| Logging + stack traces | src/common/log.c src/common/stackTrace.c | crate-log | not-started |
+| Logging + stack traces | src/common/log.c src/common/stackTrace.c | crate-log | ported (round 1. byte-exact format. 12 tests) |
 | Protocol client/server | src/protocol | crate-protocol | not-started |
 | Parallel jobs | src/protocol/parallel* | crate-protocol | not-started |
 
